@@ -1,0 +1,36 @@
+{
+  "name": "sec-13f",
+  "private": true,
+  "scripts": {
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=iife --outdir=app/assets/builds --public-path=/assets",
+    "build:css:sass": "sass ./app/javascript/stylesheets/application.bundle.scss ./app/assets/builds/application.pre.css --no-source-map --load-path=node_modules --load-path=app/javascript/stylesheets",
+    "build:css:post": "postcss ./app/assets/builds/application.pre.css --output ./app/assets/builds/application.css",
+    "build:css": "yarn build:css:sass && yarn build:css:post && rm -f ./app/assets/builds/application.pre.css"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^4.2.1",
+    "@fontsource/ibm-plex-sans": "^4.2.1",
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@tailwindcss/forms": "^0.2.1",
+    "autoprefixer": "^10.2.4",
+    "datatables.net": "^1.10.23",
+    "datatables.net-buttons": "^1.6.5",
+    "datatables.net-dt": "^1.10.23",
+    "datatables.net-fixedheader": "^3.1.8",
+    "datatables.net-fixedheader-dt": "^3.1.8",
+    "jquery": "^3.5.1",
+    "postcss": "8.2.15",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.1.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "tailwindcss": "^2.0.3",
+    "sass": "^1.77.8"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "esbuild": "^0.23.1"
+  }
+}

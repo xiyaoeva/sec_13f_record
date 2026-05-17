@@ -1,0 +1,11 @@
+<title><%= yield(:title).presence || "SEC 13F Filings" %></title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+<%= favicon_link_tag asset_path("favicon.ico") %>
+<%= favicon_link_tag asset_path("apple-touch-icon.png"), rel: "apple-touch-icon", type: "image/png" %>
+<%= yield(:head) if content_for?(:head) %>
+<meta property="og:type" content="website">
+<meta name="format-detection" content="telephone=no">
