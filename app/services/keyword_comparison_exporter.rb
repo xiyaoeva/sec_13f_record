@@ -94,12 +94,12 @@ class KeywordComparisonExporter
 
     raw_rows = AggregateHolding.find_by_sql([query, params])
     symbol_by_cusip = CusipSymbolMapping.where(cusip: raw_rows.map(&:cusip).uniq).pluck(:cusip, :symbol).to_h
-    normalized_keyword = @keyword.downcase
+    normalized_keyword = @keyword.to_s.strip.upcase
 
     raw_rows.filter_map do |r|
+      cusip = r.cusip.to_s.strip.upcase
+      next unless cusip == normalized_keyword
       symbol = symbol_by_cusip[r.cusip]
-      searchable = [symbol, r.issuer_name, r.class_title, r.cusip, r.option_type].compact.map { |v| v.to_s.downcase }
-      next unless searchable.any? { |v| v.include?(normalized_keyword) }
 
       current_amount = r.current_amount.to_i
       previous_amount = r.previous_amount.to_i
@@ -171,6 +171,6 @@ class KeywordComparisonExporter
   end
 
   def format_int(value)
-    value.to_i.to_fs(:delimited)
+    ActiveSupport::NumberHelper.number_to_delimited(value.to_i)
   end
 end
